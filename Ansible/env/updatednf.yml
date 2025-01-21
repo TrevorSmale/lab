@@ -1,0 +1,12 @@
+---
+- name: Perform system update and upgrade
+  hosts: all
+  become: true
+  tasks:
+    - name: Update package metadata
+      ansible.builtin.command:
+        cmd: dnf update -y
+
+    - name: Upgrade installed packages
+      ansible.builtin.command:
+        cmd: dnf upgrade -y

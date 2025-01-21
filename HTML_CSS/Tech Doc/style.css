@@ -1,0 +1,164 @@
+* {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+#body-div {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-areas: "nav mai";
+    max-width: 100vw;
+    font-family: arial;
+}
+
+#navbar {
+    --gray: rgb(138, 184, 214);
+    position: fixed;
+    top: 0px;
+    grid-area: nav;
+    width: 300px;
+    height: 1.5rem;
+}
+
+#nav-div {
+    overflow: auto;
+    height: 82vh;
+}
+
+#navbar h1 {
+    font: 600 26px arial;
+}
+
+.mdn-link {
+    border-bottom: 2px solid black;
+}
+
+#navbar header {
+    padding: 32px 18px;
+    outline: 1px solid black;
+}
+
+a[href="#Introduction"] {
+    border-top: 2px solid black;
+}
+
+#navbar a {
+    display: block;
+    padding: 18px 13px 18px 18px;
+    outline: 1px solid black;
+    text-decoration: none;
+    color: black;
+    background: var(--gray);
+    font: 400 18px arial;
+}
+
+#navbar a:hover {
+    background: white;
+}
+
+#main-doc {
+    grid-area: mai;
+    width: 100%;
+    padding: 8rem 8rem 8rem 8rem;
+    border-left: 2px solid black;
+    min-width: 30rem;
+    max-width: 60rem;
+}
+
+#main-doc h2 {
+    font: 600 22px arial;
+    padding: 35px 0px 20px 0px;
+}
+
+#main-doc [id] {
+    scroll-margin-top: 1.3rem;
+}
+
+#main-doc li {
+    padding: 4px 0px;
+}
+
+#main-doc ul {
+    padding: 18px;
+}
+
+#main-doc p {
+    padding: 5px 0px;
+}
+
+.explode {
+    text-indent: 20px;
+}
+
+.whereptwo {
+    margin-bottom: 0px;
+}
+
+code {
+    display: block;
+    font: 400 18px arial;
+    padding: 20px 6% 20px 8%;
+    color: rgb(0, 0, 133);
+}
+
+#Reference li {
+    padding: 0px 18px 30px 18px;
+}
+
+#Reference ul {
+    padding-top: 0px;
+}
+
+#top, #top-link {
+    text-decoration: none;
+    text-align: center;
+    color: black;
+    font-weight: 600;
+}
+
+#top-link:hover {
+    color: rgb(0, 0, 193);
+}
+
+@media (max-height:450px) {
+    #nav-div {
+        height: 75vh;
+    }
+}
+
+@media (max-width:650px) {
+    #body-div {
+        grid-template-columns: 1fr;
+        grid-template-areas: "nav"
+            "mai";
+    }
+
+    #navbar a {
+        padding: 17px 7% 17px 8%;
+        font: 600 16px arial;
+    }
+
+    #navbar {
+        position: static;
+        width: 100%;
+    }
+
+    code {
+        padding: 15px 7%;
+    }
+
+    #navbar h1 {
+        font-size: 24px;
+    }
+
+    #navbar header {
+        text-align: center;
+    }
+
+    #main-doc {
+        width: 100%;
+        padding: 10px 30px 15px 45px;
+        border: 0px;
+    }
+}

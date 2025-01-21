@@ -1,0 +1,77 @@
+# tasks file for daily_system_check
+
+#Start with gathering all the variables from the systems
+
+- name: Gather all the uptimes from all the systems
+  shell: "uptime"
+  register: uptime
+
+#last --since "$(date -d 'now - 24hour' +'%Y-%m-%d %H:%M')"
+- name: login information from the last 24 hours
+  shell: "last --since \"$(date -d 'now - 24hour' +'%Y-%m-%d %H:%M')\" | awk '{print $1}'
+| grep -vE 'root|wtmp' | sort | uniq -c |xargs| cut -c 2- "
+  register: users_check
+
+
+#Copy and save the templates for every run
+- name: Push out a template for system check items
+  template:
+    src: templates/daily_prolug_check.j2
+    dest: "/root/daily_proluglab_check/daily_system_check.{{ansible_date_time.iso8601_basi
+c_short}}.txt"
+  delegate_to: localhost
+  run_once: yes
+
+- name: ProLUG Report output capture
+  shell: "cat /root/daily_proluglab_check/daily_system_check.{{ansible_date_time.iso8601_b
+asic_short}}.txt"
+  register: prolug_report
+  delegate_to: localhost
+  run_once: yes
+
+- name: Send something simple to sandbox server
+  ansible_discord_webhook:
+    webhook_url: "{{discord_webhook_url}}"
+    content: "{{prolug_report.stdout}}"
+  when: discord_webhook_url is defined
+  delegate_to: localhost
+  run_once: yes
+
+[root@p01jump01 facts.d]# more  /root/streams/code_examples/linuxadmin/roles/daily_proluglab_check/templates/daily_prolug_check.j2
+This is a ProLUG Lab check performed at {{ ansible_date_time.time }} on {{ ansible_date_ti
+me.date }}
+
+Any ProLUG users may use the system for their own lab or testing. Systems will wipe weekly
+, or as needed. Pentesting the lab environment is fine on the weekend. During the week, it
+ is for normal Linux Administration.
+
+Systems reachable through: https://prolug.asuscomm.com:34001/ (will get cert setup eventua
+lly.)
+To get a username message het_tanis on Discord (temporary solution.)
+
+Total systems: {{ ansible_play_hosts_all | length }}
+Unreachable systems:
+----------------------------------------------
+{% for host in ansible_play_hosts_all %}
+{% if host not in ansible_play_hosts %}
+{{ host }}
+{% endif  %}
+{% endfor %}
+
+Reboot Report (Last 24 hours):
+----------------------------------------------
+{% for host in ansible_play_hosts_all %}
+{% if hostvars[host].uptime is defined %}
+{% if 'day' not in hostvars[host].uptime.stdout %}
+{{ host }}
+{% endif  %}
+{% endif  %}
+{% endfor %}
+
+User Logins to Servers in last 24 hours:
+----------------------------------------------
+{% for host in ansible_play_hosts_all %}
+{% if hostvars[host].users_check is defined %}
+ {{ hostvars[host].ansible_hostname }} - {{ hostvars[host].users_check.stdout }}
+{% endif %}
+{% endfor %}

@@ -1,0 +1,66 @@
+- name: System Information Check
+  hosts: all
+  become: yes
+  tasks:
+    - name: Check kernel version
+      command: uname -r
+      register: kernel_version
+    - name: Display kernel version
+      debug:
+        msg: "Kernel Version: {{ kernel_version.stdout }}"
+
+    - name: Display kernel command line
+      command: cat /proc/cmdline
+      register: kernel_cmdline
+    - name: Debug kernel command line
+      debug:
+        msg: "Kernel Command Line: {{ kernel_cmdline.stdout }}"
+
+    - name: Check hardware information
+      command: lshw
+      register: hardware_info
+    - name: Debug hardware information
+      debug:
+        msg: "Hardware Information: {{ hardware_info.stdout }}"
+
+    - name: List installed RPM packages
+      command: rpm -qa
+      register: installed_rpms
+    - name: Debug installed RPM packages
+      debug:
+        msg: "Installed RPMs: {{ installed_rpms.stdout }}"
+
+    - name: Check active services
+      command: systemctl list-units --type=service --state=running
+      register: active_services
+    - name: Debug active services
+      debug:
+        msg: "Active Services: {{ active_services.stdout }}"
+
+    - name: List system users
+      command: cat /etc/passwd
+      register: system_users
+    - name: Debug system users
+      debug:
+        msg: "System Users: {{ system_users.stdout }}"
+
+    - name: Check last login information
+      command: last
+      register: last_login
+    - name: Debug last login information
+      debug:
+        msg: "Last Login Information: {{ last_login.stdout }}"
+
+    - name: Display currently logged-in users
+      command: w
+      register: logged_in_users
+    - name: Debug currently logged-in users
+      debug:
+        msg: "Logged-in Users: {{ logged_in_users.stdout }}"
+
+    - name: Display ISO time
+      command: date --iso-8601=seconds
+      register: iso_time
+    - name: Debug ISO time
+      debug:
+        msg: "ISO Time: {{ iso_time.stdout }}"

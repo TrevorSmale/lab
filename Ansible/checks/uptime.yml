@@ -1,0 +1,13 @@
+---
+- hosts: all
+  remote_user: root
+
+  tasks:
+
+    - name: get uptime
+      shell: /usr/bin/uptime
+      changed_when: False
+      register: uptime
+
+    - debug:
+        var: uptime

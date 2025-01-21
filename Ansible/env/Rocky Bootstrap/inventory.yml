@@ -1,0 +1,4 @@
+all:
+  hosts:
+    your-server-ip:
+      ansible_user: root  # Replace with the user

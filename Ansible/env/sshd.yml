@@ -1,0 +1,65 @@
+# sshd.yml
+
+---
+- name: Configure OpenSSH server
+  hosts: all
+  become: yes
+  tasks:
+    - name: Installing and running openssh server
+      hosts: localhost
+
+      tasks:
+      - name: Install openssh
+        dnf:
+          name: 
+            - openssh-server
+          state: present 
+
+      - name: Activate OpenSSH service
+        systemd:
+          name: sshd
+          enabled: yes
+
+      - name: Start OpenSSH service
+        systemd:
+          name: sshd
+          state: started
+
+    - name: Backup the existing sshd_config
+      copy:
+        src: /etc/ssh/sshd_config
+        dest: /etc/ssh/sshd_config.bak
+        remote_src: yes
+
+    - name: Set customport (example: Port 2222)
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?Port '
+        line: 'Port 2222'
+        state: present
+
+    - name: Disable root login
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?PermitRootLogin '
+        line: 'PermitRootLogin no'
+        state: present
+
+    - name: Enable password authentication
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?PasswordAuthentication '
+        line: 'PasswordAuthentication yes'
+        state: present
+
+    - name: Allow specific users (example: ansible_user)
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        line: 'AllowUsers ansible_user'
+        state: present
+
+    - name: Restart SSH service to apply changes
+      systemd:
+        name: sshd
+        state: restarted  
+      

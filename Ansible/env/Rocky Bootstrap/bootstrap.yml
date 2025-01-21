@@ -1,0 +1,49 @@
+---
+- name: Bootstrap Rocky Linux 9
+  hosts: all
+  become: yes
+
+  vars:
+    github_username: "username"  # Replace with your GitHub username
+    pubkey_url: "https://github.com/{{ github_username }}/keys/ed25519.pub"
+    ssh_user: "your-user"        # Replace with the SSH user to configure
+
+  tasks:
+    - name: Ensure Python is installed
+      dnf:
+        name: python3
+        state: present
+
+    - name: Create the .ssh directory
+      file:
+        path: /home/{{ ssh_user }}/.ssh
+        state: directory
+        owner: "{{ ssh_user }}"
+        group: "{{ ssh_user }}"
+        mode: '0700'
+
+    - name: Fetch public SSH key from GitHub
+      ansible.builtin.get_url:
+        url: "{{ pubkey_url }}"
+        dest: /home/{{ ssh_user }}/.ssh/authorized_keys
+        mode: '0600'
+        owner: "{{ ssh_user }}"
+        group: "{{ ssh_user }}"
+
+    - name: Ensure the SSH service is running and enabled
+      service:
+        name: sshd
+        state: started
+        enabled: yes
+
+    - name: Disable password authentication in SSH
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?PasswordAuthentication'
+        line: 'PasswordAuthentication no'
+        state: present
+
+    - name: Restart SSH service
+      service:
+        name: sshd
+        state: restarted

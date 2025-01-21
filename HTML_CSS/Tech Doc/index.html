@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="body-div">
+        <nav id="navbar">
+            <header>
+                <h1> Electric Motor Assembly </h1>
+            </header>
+            <div id="nav-div">
+                <a href="#Introduction" class="nav-link">Introduction</a>
+                <a href="#Overview_of_Motor" class="nav-link"> Overview of Motor </a>
+                <a href="#3D_model" class="nav-link"> 3D model </a>
+                <a href="#Exploded_3D" class="nav-link"> Exploded_3D </a>
+                <a href="#Numbered_Parts" class="nav-link"> Numbered Parts</a>
+                <a href="#Individual_Components" class="nav-link"> Individual Components </a>
+                <a href="#Maintanence_Schedule" class="nav-link"> Maintanence Schedule </a>
+                <a href="#Vendors" class="nav-link"> Vendors </a>
+                <a class="mdn-link"
+                    href="https://www.dfliq.net/wp-content/uploads/2015/08/electric-motors-components.jpg"
+                    target="_blank">Typical Motor Anatomy</a>
+            </div>
+        </nav>
+
+        <main id="main-doc">
+            <section id="Introduction" class="main-section">
+                <header>
+                    <h2>Introduction</h2>
+                </header>
+                <p> Trevors Electric Motor Design </p>
+                <ul>
+                    <li>It is a highly efficient brushless motor with simple stator.</li>
+                    <li>Provides high torque transmission.</li>
+                    <li>It is an open source design that can be reconfigured</li>
+                    <li>Components are simple and easy to produce using multiple processes</li>
+                </ul>
+            </section>
+            <section id="Overview_of_Motor" class="main-section">
+                <header>
+                    <h2>Overview of Motor</h2>
+                </header>
+                <p> Electric motors typically run on direct current </p>
+                <ul>
+                    <li> Motor manufacturing is normally task specific </li>
+                    <li> Very few simple, highly reproduceable open source designs exist. </li>
+                </ul>
+            </section>
+            <section id="3D_model" class="main-section">
+                <header>
+                    <h2>3D model</h2>
+                </header>
+                <p> This motor runs on a PWM (Pulse Width Modulated) signal. Coordinated electric pulses must be sent
+                    from a high voltage circuit.</p>
+                <p>This task is controlled via a 'Micro-Controller' and 'Mosfets' </p>
+                <code>
+           p {<br>
+           func.main <br>
+           Pin 13 True <br>
+           }
+          </code>
+            </section>
+            <section id="Exploded_3D" class="main-section">
+                <header>
+                    <h2>Exploded 3D</h2>
+                </header>
+                <p> 3D dimension exploded diagram with individually labeled parts </p>
+                <p class="explode"> <b>1</b> Stator </p>
+                <p> Transfer case </p>
+                <p class="explode"> <b>2</b> Shaft </p>
+                <p class="explode"> <b>3</b> Pulley </p>
+                <code>
+            $ Curl - Download label list
+          </code>
+                <code>
+            $ Curl - Download 3D model
+        </code>
+            </section>
+            <section id="Numbered_Parts" class="main-section">
+                <header>
+                    <h2>Numbered Parts</h2>
+                </header>
+                <p class="explode"> <b>1</b> Stator </p>
+                <p> Transfer case </p>
+                <p class="explode"> <b>2</b> Shaft </p>
+                <p class="explode"> <b>3</b> Pulley </p>
+                <p> Next we will see how to target an element by using a class. This is done by using . before the class
+                    name. </p>
+                <code>
+            .sub-heading {<br>
+            color:red;<br>
+            }<br>
+          </code>
+            </section>
+            <section id="Individual Components" class="main-section">
+                <header>
+                    <h2> Individual Components </h2>
+                </header>
+                <p> The stator is the heart of the motor, it concentrates the electromagnetic energy into rotational energy.</p>
+                <p> The transfer case transmitts the rotational energy of the stator into other dynamic elements. </p>
+                <p> The shaft transmitts the directed rotational energy and torque from the motor to the transmission </p>
+                <p> The Pulley is the transmission interface within the transfer case.</p>
+            </section>
+            <section id="Maintanence_Schedule" class="main-section">
+                <header>
+                    <h2> Maintanence Schedule </h2>
+                </header>
+                <p> Rebuilds must be done after 100,000 Miles. </p>
+                <p> The transfer case needs lubrication on bearings every 20,000 Miles. </p>
+                <p> Pulleys stretch and need replacement every 80,000 Miles. </p>
+                <code>
+            curl pull maintanence schedule
+          </code>
+                <p> In the example above the comment was used just for the background red declaration but as with HTML
+                    comments they can also be used to comment out multiple lines at once. </p>
+            </section>
+            <section id="Vendors" class="main-section">
+                <header>
+                    <h2> Vendors </h2>
+                </header>
+                <ul>
+                    <li>Yatamoko castings</li>
+                    <li>Johnston stators</li>
+                    <li>Frankies shafts</li>
+                </ul>
+                <div id="Typical_Motor_Anatomy">
+                    <a href="#body-div" id="top-link" title="top of page">top</a>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>

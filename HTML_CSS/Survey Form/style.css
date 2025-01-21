@@ -1,0 +1,181 @@
+input {
+  background-color: lightgrey;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  max-width: 40rem;
+  min-width: 20rem;
+
+}
+
+.wrapper {
+
+  background-color: antiquewhite;
+  max-width: 500px;
+  min-width: 300px;
+  margin: 0 auto;
+  padding: 2rem;
+  border-style: solid;
+  border-color: white;
+  border-width: 0.1rem;
+  border-radius: 0.5rem;
+
+}
+
+body {
+  background-color: rgb(111, 151, 138);
+}
+
+#survey-form {
+  text-align: center;
+}
+
+#description {
+  color: rgb(0, 0, 0);
+}
+
+#title {
+  color: rgb(0, 0, 0);
+  text-align: center;
+}
+
+#name {
+  color: rgba(0, 0, 0, 0.074);
+  text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: rgb(255, 255, 255);
+  border-style: none;
+  border-radius: 0.5rem;
+  width: 100%;
+  height: 1.5rem;
+
+}
+
+#email {
+  color: rgba(0, 0, 0, 0.074);
+  background-color: rgb(255, 255, 255);
+  border-style: none;
+  border-radius: 0.5rem;
+  width: 100%;
+  height: 1.5rem;
+}
+
+#number {
+  color: rgba(0, 0, 0, 0.074);
+  background-color: rgb(255, 255, 255);
+  border-style: none;
+  border-radius: 0.5rem;
+  width: 100%;
+  height: 1.5rem;
+}
+
+#textarea {
+  margin: 0 auto;
+  margin-top: 1rem;
+  text-align: center;
+  display: block;
+  width: 100%;
+  height: 10rem;
+  resize: none;
+  border-style: none;
+  border-radius: 0.5rem;
+}
+
+legend {
+  width: auto;
+  text-align: center;
+  margin: 0 auto;
+  background-color: rgb(111, 151, 138);
+  color: white;
+
+}
+
+#rd {
+ margin: 1rem;
+ text-align: center;
+
+}
+
+#rd_label {
+  margin: 0 auto;
+
+}
+#input-label {
+  color: lightgray;
+}
+
+#name-label {
+  text-align: left;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin: 0 auto;
+}
+
+#email-label {
+  text-align: left;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin: 0 auto;
+}
+
+#number-label {
+  text-align: left;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin: 0 auto;
+}
+
+#submit {
+  color: red;
+  input-type: submit;
+}
+
+#dd {
+  text-align: center;
+  display: block;
+}
+
+#dropdown {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+#label {
+
+  text-align: center;
+  font-size: large;
+
+}
+
+#yes {
+  margin: 0 auto;
+  margin-top: 1rem;
+  text-align: center;
+  display: block;
+}
+
+
+
+#no {
+  margin: 0 auto;
+  margin-top: 1rem;
+  text-align: center;
+  display: block;
+}
+
+h1 {
+
+  margin: 0%;
+  text-align: center;
+  font-size: x-large;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+h2 {
+
+  text-align: center;
+  font-size: large;
+  margin-bottom: 0;
+}
+
+p {
+  text-align: center;
+}

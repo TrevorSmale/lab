@@ -1,0 +1,7 @@
+function isLess(a, b) {
+  // Only change code below this line
+
+  return a*3 === b*2;
+}
+
+isLess(10, 15);
