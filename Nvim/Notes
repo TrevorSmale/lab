@@ -1,0 +1,7 @@
+# NVIM
+
+NeoVIM is a spiritual successor to Bill Joys vim, a beloved industry standard tool in the Linux world. NeoVIM has a smaller, more tightly written codebase and a more extensible system of customization using Lua.
+
+I have been using a slightly customized version of vim for terminal text work for some time. However, recently I have become accustomed to using stow, a tool for managing config files using soft-linking.
+
+I had made a prior attempt to create a structured nvim config tree that had become unwieldy. However, now that I can manage complex configurations with Git and Stow, I am much more confident with making a complex config with many features.
