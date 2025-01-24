@@ -1,0 +1,33 @@
+direction: right
+
+etcdPod: "etcd Pod" {
+  metadata: "Metadata" {
+    name: "etcd-0"
+    labels: "app: etcd"
+    annotations: "Annotations"
+  }
+
+  spec: "Spec" {
+    container: "etcd Container" {
+      image: "k8s.gcr.io/etcd:3.5.9"
+      ports: "2379, 2380"
+      command: "etcd"
+      env: "Cluster Config"
+      volumeMounts: "/var/lib/etcd"
+    }
+    volumes: "Volumes" {
+      dataDir: "PersistentVolume"
+    }
+    networking: "Networking" {
+      clientPort: "2379 (Client Access)"
+      peerPort: "2380 (Cluster Communication)"
+      podIP: "192.168.1.20"
+    }
+  }
+
+  status: "Status" {
+    phase: "Running"
+    conditions: "Ready: True"
+    hostIP: "10.0.0.5"
+  }
+}

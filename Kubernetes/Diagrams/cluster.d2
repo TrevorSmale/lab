@@ -1,0 +1,57 @@
+kubernetes: "Kubernetes Cluster" {
+  controlPlane: "Control Plane" {
+    apiServer: "API Server"
+    controllerManager: "Controller Manager Pod"
+    scheduler: "Scheduler Pod"
+    etcd: "etcd Cluster"
+  }
+
+  workerNodes: "Worker Nodes" {
+    node1: "Node 1" {
+      kubelet: "Kubelet"
+      kubeProxy: "Kube Proxy"
+      pod1: "Pod 1" {
+        container1: "nginx Container"
+      }
+    }
+
+    node2: "Node 2" {
+      kubelet: "Kubelet"
+      kubeProxy: "Kube Proxy"
+      pod2: "Pod 2" {
+        container2: "nginx Container"
+      }
+    }
+
+    node3: "Node 3" {
+      kubelet: "Kubelet"
+      kubeProxy: "Kube Proxy"
+      pod3: "Pod 3" {
+        container3: "nginx Container"
+      }
+    }
+  }
+
+  networking: "Networking" {
+    service: "LoadBalancer Service" {
+      routes: "Traffic Routes to Pods"
+    }
+    internalNetworking: "Cluster Networking"
+  }
+
+  externalClient: "External Client" {
+    access: "Access LoadBalancer"
+  }
+}
+
+// Connections
+kubernetes.controlPlane.etcd -> kubernetes.controlPlane.apiServer: "Store Cluster State"
+kubernetes.controlPlane.controllerManager -> kubernetes.controlPlane.apiServer
+kubernetes.controlPlane.scheduler -> kubernetes.controlPlane.apiServer
+
+kubernetes.workerNodes.node1.pod1 -> kubernetes.networking.service.routes
+kubernetes.workerNodes.node2.pod2 -> kubernetes.networking.service.routes
+kubernetes.workerNodes.node3.pod3 -> kubernetes.networking.service.routes
+
+kubernetes.networking.service.routes -> kubernetes.networking.internalNetworking
+kubernetes.externalClient.access -> kubernetes.networking.service

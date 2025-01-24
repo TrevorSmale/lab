@@ -1,0 +1,27 @@
+direction: down
+
+pod: "Kubernetes Pod" {
+  metadata: "Metadata" {
+    name: "Pod Name"
+    labels: "Labels"
+    annotations: "Annotations"
+  }
+
+  spec: "Spec" {
+    container: "Container" {
+      image: "nginx:latest"
+      ports: "80"
+      env: "Environment Vars"
+      volumes: "/data"
+    }
+    networking: "Networking" {
+      podIP: "192.168.1.10"
+      dns: "ClusterFirst"
+    }
+  }
+
+  status: "Status" {
+    phase: "Running"
+    hostIP: "10.0.0.5"
+  }
+}
