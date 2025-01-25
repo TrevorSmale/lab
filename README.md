@@ -4,4 +4,4 @@ This is my place for building mini projects, learning and testing things. I used
 
 ## SysBook
 
-I keep better notes elsewhere. My **2nd Brain** is kept offline in **LogSeq**. However, I have been building a reference book for Systems called SysBook @ [https://trevorsmale.github.io/sysbook](https://trevorsmale.github.io/sysbook)
+I keep better notes elsewhere. My **2nd Brain** is kept offline in **LogSeq**. However, I have been building a reference book for Systems called **SysBook** @ [https://trevorsmale.github.io/sysbook](https://trevorsmale.github.io/sysbook)
