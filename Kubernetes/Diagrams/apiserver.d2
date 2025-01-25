@@ -1,0 +1,16 @@
+user: User
+kube_apiserver: Kube-API Server
+etcd: etcd Cluster
+kube_scheduler: Kube-Scheduler
+kubelet: Kubelet
+controller_manager: Controller Manager
+
+user -> kube_apiserver: "API Requests"
+kube_apiserver -> etcd: "Store/Retrieve Cluster State"
+etcd -> kube_apiserver: "Respond Cluster State"
+kube_apiserver -> kube_scheduler: "Scheduling Requests"
+kube_scheduler -> kube_apiserver: "Scheduling Decisions"
+kube_apiserver -> kubelet: "Workload Instructions"
+kubelet -> kube_apiserver: "Node/Pod Status"
+kube_apiserver -> controller_manager: "Controller Instructions"
+controller_manager -> kube_apiserver: "Control Loop Updates"
