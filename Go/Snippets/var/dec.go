@@ -5,5 +5,5 @@ func main() {
 	var dave int = 36
 	var bim int = 89
 
-	fmt.printf(jim, dave, bim)
+	print(jim, dave, bim)
 }
