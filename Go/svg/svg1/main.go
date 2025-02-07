@@ -10,13 +10,13 @@ import (
 )
 
 func main() {
-	// Prompt user for SVG file name
+	// Prompt for SVG file name
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Enter the name of the SVG file (without extension): ")
 	fileName, _ := reader.ReadString('\n')
 	fileName = strings.TrimSpace(fileName) + ".svg"
 
-	// Create a file to save the SVG
+	// Create file for SVG
 	file, err := os.Create(fileName)
 	if err != nil {
 		panic(err)
@@ -24,24 +24,21 @@ func main() {
 	defer file.Close()
 
 	// Set canvas dimensions
-	width := 500
-	height := 500
+	width := 1200
+	height := 800
 
-	// Initialize the SVG canvas
+	// Init canvas
 	canvas := svg.New(file)
 	canvas.Start(width, height)
 
-	// Draw a rectangle
-	canvas.Rect(50, 50, 200, 100, "fill:blue;stroke:black;stroke-width:3")
+	// Draw rect
+	canvas.Rect(0, 0, 1200, 800, "fill:green;stroke:black;stroke-width:0")
 
-	// Draw a circle
-	canvas.Circle(300, 150, 80, "fill:red;stroke:black;stroke-width:2")
-
-	// Draw a line
-	canvas.Line(100, 300, 400, 300, "stroke:black;stroke-width:5")
+	// Draw line
+	canvas.Line(0, 300, 1200, 300, "stroke:white;stroke-width:4")
 
 	// Add text
-	canvas.Text(250, 400, "Go SVG Graphic!", "text-anchor:middle;font-size:24px;fill:black")
+	canvas.Text(250, 400, "Certificate of Completion", "text-anchor:middle;font-size:24px;fill:black")
 
 	// End and save the file
 	canvas.End()
