@@ -1,0 +1,133 @@
+---
+- name: Red Hat System Setup with Rust, Go, Perl, Alacritty, Zellij, Podman, and RHEL Tools
+  hosts: localhost
+  become: yes
+  vars:
+    go_version: "1.20.5"  # Replace with the latest stable version
+    go_download_url: "https://golang.org/dl/go{{ go_version }}.linux-amd64.tar.gz"
+    rust_install_script: "https://sh.rustup.rs"
+    alacritty_repo: "https://github.com/alacritty/alacritty.git"
+    zellij_download_url: "https://github.com/zellij-org/zellij/releases/latest/download/zellij-x86_64-unknown-linux-musl.tar.gz"
+
+  tasks:
+    - name: Ensure essential packages for building and downloading are installed
+      ansible.builtin.dnf:
+        name:
+          - perl
+          - neovim
+          - stow
+          - curl
+          - git
+          - tar
+          - cmake
+          - tmux
+          - pkg-config
+          - libxcb-devel
+          - xclip  # Required for copying public key to clipboard
+          - dnf-utils
+          - subscription-manager
+          - redhat-lsb-core
+          - policycoreutils-python-utils  # For SELinux management
+        state: present
+        update_cache: yes
+
+    # Go Installation
+    - name: Download and install the latest Go binary
+      ansible.builtin.get_url:
+        url: "{{ go_download_url }}"
+        dest: "/tmp/go{{ go_version }}.tar.gz"
+
+    - name: Extract and move Go to /usr/local
+      ansible.builtin.unarchive:
+        src: "/tmp/go{{ go_version }}.tar.gz"
+        dest: "/usr/local"
+        remote_src: yes
+        extra_opts: [ "--strip-components=1" ]  # Remove top-level directory
+
+    - name: Add Go paths to bashrc
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_env.HOME }}/.bashrc"
+        line: |
+          export PATH=$PATH:/usr/local/go/bin
+      state: present
+
+    # Rust Installation
+    - name: Install Rust using rustup installer
+      ansible.builtin.shell: |
+        curl --proto '=https' --tlsv1.2 -sSf {{ rust_install_script }} | sh -s -- -y
+      args:
+        executable: /bin/bash
+
+    - name: Add Rust paths to bashrc
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_env.HOME }}/.bashrc"
+        line: |
+          export PATH=$PATH:{{ ansible_env.HOME }}/.cargo/bin
+      state: present
+
+    # Alacritty Installation
+    - name: Clone Alacritty repository
+      ansible.builtin.git:
+        repo: "{{ alacritty_repo }}"
+        dest: "/tmp/alacritty"
+        update: yes
+
+    - name: Build Alacritty from source
+      ansible.builtin.shell: |
+        cd /tmp/alacritty
+        cargo build --release
+        sudo cp target/release/alacritty /usr/local/bin
+        sudo desktop-file-install extra/linux/Alacritty.desktop
+        sudo update-desktop-database
+      args:
+        executable: /bin/bash
+
+    # Zellij Installation
+    - name: Download Zellij latest release
+      ansible.builtin.get_url:
+        url: "{{ zellij_download_url }}"
+        dest: "/tmp/zellij.tar.gz"
+
+    - name: Extract and install Zellij
+      ansible.builtin.unarchive:
+        src: "/tmp/zellij.tar.gz"
+        dest: "/usr/local/bin"
+        remote_src: yes
+
+    - name: Add Zellij to bashrc
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_env.HOME }}/.bashrc"
+        line: |
+          export PATH=$PATH:/usr/local/bin/zellij
+      state: present
+
+    # Podman Installation
+    - name: Ensure Podman and related tools are installed
+      ansible.builtin.dnf:
+        name:
+          - podman
+          - podman-compose
+        state: present
+
+    # Podman Compose Configuration
+    - name: Verify Podman Compose installation
+      ansible.builtin.shell: |
+        podman-compose version || pip3 install --user podman-compose
+      args:
+        executable: /bin/bash
+
+    - name: Add pip3-installed podman-compose to PATH
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_env.HOME }}/.bashrc"
+        line: |
+          export PATH=$PATH:{{ ansible_env.HOME }}/.local/bin
+      state: present
+
+    - name: Source bashrc to apply changes
+      ansible.builtin.shell: source {{ ansible_env.HOME }}/.bashrc
+      args:
+        executable: /bin/bash
+
+    - name: Display success message
+      ansible.builtin.debug:
+        msg: "Rust, Go, Perl, Alacritty, Zellij, Podman, and RHEL tools have been successfully installed. Restart your shell or run 'source ~/.bashrc'."
