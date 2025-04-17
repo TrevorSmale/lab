@@ -1,0 +1,11 @@
+FirstName:LastName:LicenseNumber:City:Status
+Alice:Johnson:LX483920:Seattle:Active
+Bob:Smith:LX294756:Denver:Suspended
+Carla:Reeves:LX183920:Chicago:Expired
+David:Lopez:LX847210:Miami:Active
+Eva:Nguyen:LX392847:Boston:Revoked
+Frank:Turner:LX103948:Austin:Active
+Grace:Kim:LX857392:SanDiego:Pending
+Henry:Patel:LX938475:Atlanta:Expired
+Irene:Schmidt:LX473829:Phoenix:Active
+Jack:O'Neill:LX203948:Detroit:Suspended
