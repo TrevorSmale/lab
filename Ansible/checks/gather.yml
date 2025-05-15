@@ -1,0 +1,66 @@
+---
+- name: Gather remote system info and store report locally
+  hosts: all
+  gather_facts: false
+
+  vars:
+    report_dir: "./reports"
+    report_file: "{{ report_dir }}/{{ inventory_hostname }}_report_{{ lookup('pipe', 'date +%F_%H-%M') }}.txt"
+
+  tasks:
+    - name: Get date
+      command: date
+      register: date_out
+      changed_when: false
+
+    - name: Get uptime
+      command: uptime
+      register: uptime_out
+      changed_when: false
+
+    - name: Get logged in users
+      command: w
+      register: w_out
+      changed_when: false
+
+    - name: Get load average
+      command: cat /proc/loadavg
+      register: load_out
+      changed_when: false
+
+    - name: Get disk usage
+      command: df -h /
+      register: disk_out
+      changed_when: false
+
+    - name: Get memory usage
+      command: free -h
+      register: mem_out
+      changed_when: false
+
+    - name: Make local report directory
+      delegate_to: localhost
+      file:
+        path: "{{ report_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Save report to local file
+      delegate_to: localhost
+      copy:
+        dest: "{{ report_file }}"
+        content: |
+          === {{ inventory_hostname }} System Report ===
+          Date: {{ date_out.stdout }}
+          Uptime: {{ uptime_out.stdout }}
+          Logged-in Users:
+          {{ w_out.stdout }}
+
+          Load Average:
+          {{ load_out.stdout }}
+
+          Disk Usage:
+          {{ disk_out.stdout }}
+
+          Memory Usage:
+          {{ mem_out.stdout }}
